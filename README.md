@@ -1,3 +1,4 @@
 ﻿# My Project
 
-use "npm serve ." to run the project 
+use "npx serve ." to run the project 
+
