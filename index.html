@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoundXpand - Join the Music Revolution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated background elements */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="25" cy="25" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="75" cy="75" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="10" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="10" cy="60" r="1.5" fill="rgba(255,255,255,0.1)"/><circle cx="90" cy="30" r="1" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: float 20s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            100% { transform: translateY(-100vh) rotate(360deg); }
+        }
+
+        .signup-container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 
+                0 32px 64px rgba(0, 0, 0, 0.1),
+                0 16px 32px rgba(0, 0, 0, 0.05),
+                inset 0 1px 0 rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+
+        .logo i {
+            font-size: 36px;
+            color: white;
+        }
+
+        .logo-section h1 {
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .logo-section p {
+            color: #6b7280;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .form-section h2 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .form-section p {
+            color: #6b7280;
+            margin-bottom: 32px;
+            font-size: 14px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #374151;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .input-container {
+            position: relative;
+        }
+
+        .input-container i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            background-color: #ffffff;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            background-color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+        }
+
+        .form-group input:focus + .input-container i,
+        .form-group:focus-within .input-container i {
+            color: #667eea;
+        }
+
+        .form-group.error input {
+            border-color: #ef4444;
+        }
+
+        .form-group.success input {
+            border-color: #10b981;
+        }
+
+        .form-group .error-message {
+            color: #ef4444;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .password-strength {
+            margin-top: 8px;
+            font-size: 12px;
+        }
+
+        .strength-bar {
+            height: 4px;
+            background-color: #e5e7eb;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 4px;
+        }
+
+        .strength-fill {
+            height: 100%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .strength-weak .strength-fill { width: 25%; background-color: #ef4444; }
+        .strength-fair .strength-fill { width: 50%; background-color: #f59e0b; }
+        .strength-good .strength-fill { width: 75%; background-color: #3b82f6; }
+        .strength-strong .strength-fill { width: 100%; background-color: #10b981; }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            margin-top: 8px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(102, 126, 234, 0.4);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .submit-btn .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff40;
+            border-top: 2px solid #ffffff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 8px;
+        }
+
+        .submit-btn.loading .loading-spinner {
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .status-message {
+            margin-top: 20px;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 500;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .status-message.success {
+            background-color: #ecfdf5;
+            color: #047857;
+            border: 1px solid #a7f3d0;
+        }
+
+        .status-message.error {
+            background-color: #fef2f2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .terms-section {
+            margin-top: 24px;
+            text-align: center;
+        }
+
+        .terms-section p {
+            font-size: 12px;
+            color: #6b7280;
+            line-height: 1.5;
+        }
+
+        .terms-section a {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .terms-section a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            margin: 32px 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(to right, transparent, #e5e7eb, transparent);
+        }
+
+        .divider span {
+            background: white;
+            padding: 0 16px;
+            color: #9ca3af;
+            font-size: 14px;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 640px) {
+            .signup-container {
+                padding: 32px 24px;
+                margin: 16px;
+                border-radius: 16px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .logo-section h1 {
+                font-size: 28px;
+            }
+
+            .form-section h2 {
+                font-size: 20px;
+            }
+        }
+
+        /* Smooth transitions */
+        * {
+            transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="signup-container">
+        <div class="logo-section">
+            <div class="logo">
+                <i class="fas fa-music"></i>
+            </div>
+            <h1>SoundXpand</h1>
+            <p>Join the music revolution</p>
+        </div>
+
+        <div class="form-section">
+            <h2>Create your account</h2>
+            <p>Start your musical journey with us today</p>
+
+            <form id="signupForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <div class="input-container">
+                            <input type="text" id="firstName" required autocomplete="given-name">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="error-message">Please enter your first name</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <div class="input-container">
+                            <input type="text" id="lastName" required autocomplete="family-name">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="error-message">Please enter your last name</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-container">
+                        <input type="text" id="username" required autocomplete="username">
+                        <i class="fas fa-at"></i>
+                    </div>
+                    <div class="error-message">Please choose a unique username</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <div class="input-container">
+                        <input type="email" id="email" required autocomplete="email">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="error-message">Please enter a valid email address</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-container">
+                        <input type="password" id="password" required autocomplete="new-password" minlength="6">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <div class="password-strength">
+                        <div class="strength-bar">
+                            <div class="strength-fill"></div>
+                        </div>
+                        <div class="strength-text">Password strength: <span id="strengthText">Enter password</span></div>
+                    </div>
+                    <div class="error-message">Password must be at least 6 characters long</div>
+                </div>
+
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <span class="loading-spinner"></span>
+                    <span class="btn-text">Create Account</span>
+                </button>
+            </form>
+
+            <div id="statusMessage" class="status-message"></div>
+
+            <div class="terms-section">
+                <p>
+                    By creating an account, you agree to our 
+                    <a href="#" onclick="return false;">Terms of Service</a> and 
+                    <a href="#" onclick="return false;">Privacy Policy</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase CDN -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-auth.js';
+        import { getFirestore, doc, setDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.1/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCeJHwQ_k7FlJWwI-DjMPOgNKEwkgXbC40",
+            authDomain: "soundxpand-f57d6.firebaseapp.com",
+            projectId: "soundxpand-f57d6",
+            storageBucket: "soundxpand-f57d6.firebasestorage.app",
+            messagingSenderId: "990116245771",
+            appId: "1:990116245771:web:979a2c28b3d4517d90f20e",
+            measurementId: "G-JMTF31YMNP"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Password strength checker
+        function checkPasswordStrength(password) {
+            const strengthBar = document.querySelector('.strength-bar');
+            const strengthText = document.getElementById('strengthText');
+            
+            let score = 0;
+            if (password.length >= 6) score++;
+            if (/[a-z]/.test(password)) score++;
+            if (/[A-Z]/.test(password)) score++;
+            if (/[0-9]/.test(password)) score++;
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+
+            strengthBar.className = 'strength-bar';
+            if (password.length === 0) {
+                strengthText.textContent = 'Enter password';
+            } else if (score < 2) {
+                strengthBar.classList.add('strength-weak');
+                strengthText.textContent = 'Weak';
+            } else if (score < 3) {
+                strengthBar.classList.add('strength-fair');
+                strengthText.textContent = 'Fair';
+            } else if (score < 4) {
+                strengthBar.classList.add('strength-good');
+                strengthText.textContent = 'Good';
+            } else {
+                strengthBar.classList.add('strength-strong');
+                strengthText.textContent = 'Strong';
+            }
+        }
+
+        // Form validation
+        function validateField(field, condition, errorMessage) {
+            const formGroup = field.closest('.form-group');
+            const errorDiv = formGroup.querySelector('.error-message');
+            
+            if (condition) {
+                formGroup.classList.remove('error');
+                formGroup.classList.add('success');
+                return true;
+            } else {
+                formGroup.classList.remove('success');
+                formGroup.classList.add('error');
+                errorDiv.textContent = errorMessage;
+                return false;
+            }
+        }
+
+        function showStatusMessage(message, type) {
+            const statusEl = document.getElementById('statusMessage');
+            statusEl.className = `status-message ${type}`;
+            statusEl.textContent = message;
+            statusEl.style.display = 'block';
+        }
+
+        function hideStatusMessage() {
+            document.getElementById('statusMessage').style.display = 'none';
+        }
+
+        // Event listeners
+        document.getElementById('password').addEventListener('input', function() {
+            checkPasswordStrength(this.value);
+        });
+
+        document.getElementById('email').addEventListener('blur', function() {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            validateField(this, emailRegex.test(this.value), 'Please enter a valid email address');
+        });
+
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const submitBtn = document.getElementById('submitBtn');
+
+            // Validation
+            let isValid = true;
+            isValid &= validateField(document.getElementById('firstName'), firstName.length > 0, 'Please enter your first name');
+            isValid &= validateField(document.getElementById('lastName'), lastName.length > 0, 'Please enter your last name');
+            isValid &= validateField(document.getElementById('username'), username.length > 0, 'Please choose a username');
+            isValid &= validateField(document.getElementById('email'), /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email), 'Please enter a valid email address');
+            isValid &= validateField(document.getElementById('password'), password.length >= 6, 'Password must be at least 6 characters long');
+
+            if (!isValid) {
+                showStatusMessage('Please fix the errors above', 'error');
+                return;
+            }
+
+            // Show loading state
+            hideStatusMessage();
+            submitBtn.disabled = true;
+            submitBtn.classList.add('loading');
+            submitBtn.querySelector('.btn-text').textContent = 'Creating Account...';
+
+            try {
+                // Create user in Firebase Auth
+                const cred = await createUserWithEmailAndPassword(auth, email, password);
+                const uid = cred.user.uid;
+
+                // Create profile in Firestore
+                await setDoc(doc(db, "users", uid), {
+                    id: uid,
+                    firstName: firstName,
+                    lastName: lastName,
+                    username: username,
+                    email: email,
+                    createdAt: serverTimestamp(),
+                    updatedAt: serverTimestamp()
+                });
+
+                showStatusMessage('🎉 Welcome to SoundXpand! Your account has been created successfully.', 'success');
+                document.getElementById('signupForm').reset();
+                checkPasswordStrength('');
+
+                // Clear form validation states
+                document.querySelectorAll('.form-group').forEach(group => {
+                    group.classList.remove('error', 'success');
+                });
+
+            } catch (error) {
+                let errorMessage = 'Failed to create account. Please try again.';
+                
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage = 'This email is already registered. Try signing in instead.';
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage = 'Password is too weak. Please choose a stronger password.';
+                } else if (error.code === 'auth/invalid-email') {
+                    errorMessage = 'Please enter a valid email address.';
+                }
+                
+                showStatusMessage(errorMessage, 'error');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.classList.remove('loading');
+                submitBtn.querySelector('.btn-text').textContent = 'Create Account';
+            }
+        });
+    </script>
+</body>
+</html>
